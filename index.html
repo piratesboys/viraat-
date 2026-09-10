@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viraat Leader Chess Team for GM</title>
+    <style>
+        :root {
+            --bg-color: #161512;
+            --card-bg: #262421;
+            --accent-color: #b58863;
+            --text-main: #bababa;
+            --text-light: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://unsplash.com') center/cover;
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        header h1 {
+            color: var(--text-light);
+            margin: 0 0 10px 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        nav {
+            background-color: #1e1c18;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #363431;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 8px 16px;
+            margin: 0 5px;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            color: var(--text-light);
+            border-left: 4px solid var(--accent-color);
+            padding-left: 10px;
+            margin-top: 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            padding: 12px 24px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            margin-top: 15px;
+            transition: opacity 0.3s;
+            text-align: center;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 8px 0;
+            border-bottom: 1px solid #363431;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        .leader-link {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .leader-link:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: #12110f;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            border-top: 1px solid #262421;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Viraat Leader Chess Team for GM</h1>
+        <p>🥇 Masters of Chess — We Never Resign! 🥇</p>
+        <a href="https://lichess.org/team/viraat-leader-chess-team-for-gm" target="_blank" class="btn">Join Our Lichess Team</a>
+    </header>
+
+    <nav>
+        <a href="#about">About</a>
+        <a href="#leaders">Leadership</a>
+        <a href="#battles">Team Battles</a>
+        <a href="#partners">Partner Teams</a>
+    </nav>
+
+    <div class="container">
+        <div class="grid">
+            <main>
+                <section id="about" class="card">
+                    <h2>Welcome to Our Academy</h2>
+                    <p>Founded by <strong>@ViraatReddy</strong>, we are a community dedicated to helping chess players level up their skills, climb the ranks, and push towards Grandmaster status. We have a dream of growing to 500-1000 players!</p>
+                    <p>Want to become a leader? Bring 2-4 members into the group, reach at least 10 tournament points in team battles, and stay generous and polite!</p>
+                </section>
+
+                <section id="battles" class="card">
+                    <h2>⚔️ Daily Team Battles</h2>
+                    <p>Gear up! We run team battles and arena tournaments regularly. Contact one of our leaders to secure your spot or organize a challenge.</p>
+                    <a href="https://lichess.org" target="_blank" class="btn">View Current Lichess Tournaments</a>
+                </section>
+
+                <section id="partners" class="card">
+                    <h2>🤝 Friend & Partner Teams</h2>
+                    <p>Make sure to check out our extended network and join our partner divisions:</p>
+                    <ul>
+                        <li>🔗 <a href="https://lichess.org" target="_blank" class="leader-link">Speed Chess Academy</a></li>
+                        <li>🔗 <a href="https://lichess.org" target="_blank" class="leader-link">Cricket Pros</a></li>
+                        <li>🔗 <a href="https://lichess.org" target="_blank" class="leader-link">Players That Play Chess</a></li>
+                    </ul>
+                </section>
+            </main>
+
+            <aside>
+                <section id="leaders" class="card">
+                    <h2>👑 Leadership Team</h2>
+                    <ul>
+                        <li><strong>Main Leader:</strong> <a class="leader-link" href="https://lichess.org" target="_blank">@ViraatReddy</a></li>
+                        <li><strong>Manager:</strong> <a class="leader-link" href="https://lichess.org" target="_blank">@SaidevsGambit</a></li>
+                        <li><strong>Manager:</strong> <a class="leader-link" href="https://lichess.org" target="_blank">@reyanshpradhan</a></li>
+                        <li><strong>Organiser:</strong> <a class="leader-link" href="https://lichess.org" target="_blank">@EhrenChessmaster</a></li>
+                        <li><strong>Co-Leader:</strong> <a class="leader-link" href="https://lichess.org" target="_blank">@tnelli13</a></li>
+                    </ul>
+                </section>
+
+                <section class="card">
+                    <h2>🏆 Leaderboard Points</h2>
+                    <ul>
+                        <li>🥇 BotKumudan_Chess - 35 pts</li>
+                        <li>🥈 tnelli13 - 30 pts</li>
+                        <li>🥉 Keshav Kumar Gautam - 15 pts</li>
+                        <li>🏅 saidevsgambit - 15 pts</li>
+                        <li>🏅 redyapradhan - 10 pts</li>
+                    </ul>
+                </section>
+            </aside>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Viraat Leader Chess Team for GM. Website created thanks to @Team_Godz & @ViraatReddy.</p>
+    </footer>
+
+</body>
+</html>
