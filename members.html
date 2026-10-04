@@ -1,0 +1,426 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Meet the members of Viraat Leader Chess Team for GM.">
+    <title>Our Members | Viraat Leader Chess Team for GM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="hero">
+
+        <!-- NAVIGATION -->
+        <nav>
+            <a href="index.html" class="brand">VIRAAT CHESS FOR GM</a>
+
+            <div class="links">
+                <a href="index.html">Home</a>
+                <a href="members.html">Members</a>
+                <a
+                    href="https://lichess.org/team/viraat-leader-chess-team-for-gm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >Lichess Team</a>
+            </div>
+        </nav>
+
+        <!-- TITLE -->
+        <div class="hero-content">
+            <p class="eyebrow">OUR COMMUNITY</p>
+            <h1>Our <span>Members</span></h1>
+            <p>
+                Meet the players of Viraat Leader Chess Team for GM
+                and discover our chess community.
+            </p>
+
+            <div class="buttons">
+                <a
+                    href="https://lichess.org/team/viraat-leader-chess-team-for-gm"
+                    class="btn primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >Join Our Team</a>
+
+                <a href="index.html" class="btn secondary">
+                    Back to Home
+                </a>
+            </div>
+        </div>
+
+    </header>
+
+
+    <!-- MEMBERS SECTION -->
+    <main class="dark-section">
+
+        <section>
+            <div class="container">
+
+                <!-- MEMBER COUNT -->
+                <div class="stats">
+                    <strong id="member-count">—</strong>
+                    <span>Team Members</span>
+                    <p id="last-update">Waiting for data...</p>
+                </div>
+
+
+                <!-- SEARCH -->
+                <input
+                    type="search"
+                    id="member-search"
+                    class="search"
+                    placeholder="Search for a member..."
+                    aria-label="Search for a member"
+                >
+
+
+                <!-- STATUS -->
+                <p id="status" class="status" role="status">
+                    Connecting to Lichess...
+                </p>
+
+
+                <!-- MEMBERS GRID -->
+                <div id="members" class="grid"></div>
+
+
+                <!-- JOIN NOTICE -->
+                <div class="notice" style="margin-top: 40px;">
+                    <h3>Become a Member</h3>
+                    <p>
+                        Join our team on Lichess, play chess,
+                        take part in tournaments and improve together.
+                    </p>
+
+                    <a
+                        href="https://lichess.org/team/viraat-leader-chess-team-for-gm"
+                        class="btn primary"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >Join on Lichess</a>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <p>
+            © 2026 <strong>Viraat Leader Chess Team for GM</strong>
+        </p>
+        <p>Powered by Lichess</p>
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+        /*
+         * ==========================================
+         * CONFIGURATION
+         * ==========================================
+         */
+
+        const API_URL =
+            "https://lichess.org/api/team/viraat-leader-chess-team-for-gm/users";
+
+        const UPDATE_INTERVAL = 30000;
+
+        const container = document.getElementById("members");
+        const count = document.getElementById("member-count");
+        const lastUpdate = document.getElementById("last-update");
+        const status = document.getElementById("status");
+        const searchInput = document.getElementById("member-search");
+
+        let members = [];
+        let isLoading = false;
+
+
+        /*
+         * ==========================================
+         * DISPLAY MEMBERS
+         * ==========================================
+         */
+
+        function renderMembers(filter = "") {
+
+            const query = filter.trim().toLowerCase();
+
+            const filteredMembers = members.filter(member =>
+                member.username.toLowerCase().includes(query)
+            );
+
+            const fragment = document.createDocumentFragment();
+
+
+            if (filteredMembers.length === 0) {
+
+                const message = document.createElement("p");
+
+                message.className = "status";
+
+                message.textContent = members.length
+                    ? "No members match your search."
+                    : "No members found.";
+
+                container.replaceChildren(message);
+
+                return;
+            }
+
+
+            filteredMembers.forEach(member => {
+
+                const username = member.username;
+
+
+                /*
+                 * MEMBER CARD
+                 */
+
+                const card = document.createElement("a");
+
+                card.className = "member";
+
+                card.href =
+                    "https://lichess.org/@/" +
+                    encodeURIComponent(username);
+
+                card.target = "_blank";
+
+                card.rel = "noopener noreferrer";
+
+
+                /*
+                 * AVATAR
+                 */
+
+                const avatar = document.createElement("img");
+
+                avatar.className = "avatar";
+
+                avatar.src =
+                    "https://lichess1.org/user/" +
+                    encodeURIComponent(username) +
+                    "/avatar";
+
+                avatar.alt = username + " avatar";
+
+                avatar.loading = "lazy";
+
+
+                avatar.onerror = function () {
+
+                    this.onerror = null;
+
+                    this.src =
+                        "https://lichess1.org/assets/logo/lichess-favicon-512.png";
+
+                };
+
+
+                /*
+                 * USERNAME
+                 */
+
+                const name = document.createElement("h3");
+
+                name.textContent = username;
+
+
+                /*
+                 * PROFILE LINK LABEL
+                 */
+
+                const profile = document.createElement("span");
+
+                profile.className = "profile";
+
+                profile.textContent = "View Profile";
+
+
+                /*
+                 * ADD ELEMENTS
+                 */
+
+                card.appendChild(avatar);
+                card.appendChild(name);
+                card.appendChild(profile);
+
+                fragment.appendChild(card);
+
+            });
+
+
+            container.replaceChildren(fragment);
+
+        }
+
+
+        /*
+         * ==========================================
+         * LOAD MEMBERS FROM LICHESS
+         * ==========================================
+         */
+
+        async function loadMembers() {
+
+            if (isLoading) return;
+
+            isLoading = true;
+
+            try {
+
+                const response = await fetch(API_URL, {
+                    method: "GET",
+                    cache: "no-store"
+                });
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Lichess returned HTTP " + response.status
+                    );
+
+                }
+
+
+                /*
+                 * LICHESS JSONL RESPONSE
+                 */
+
+                const text = await response.text();
+
+                const loadedMembers = text
+                    .split("\n")
+                    .filter(line => line.trim() !== "")
+                    .map(line => JSON.parse(line))
+                    .map(user => ({
+                        username:
+                            user.username ||
+                            user.id ||
+                            user.name
+                    }))
+                    .filter(user => user.username);
+
+
+                /*
+                 * SORT MEMBERS ALPHABETICALLY
+                 */
+
+                members = loadedMembers.sort((a, b) =>
+                    a.username.localeCompare(b.username)
+                );
+
+
+                /*
+                 * UPDATE COUNT
+                 */
+
+                count.textContent = members.length;
+
+
+                /*
+                 * UPDATE STATUS
+                 */
+
+                status.textContent = "Members loaded successfully.";
+
+                lastUpdate.textContent =
+                    "Last updated: " +
+                    new Date().toLocaleTimeString();
+
+
+                /*
+                 * DISPLAY MEMBERS
+                 */
+
+                renderMembers(searchInput.value);
+
+
+                console.log(
+                    "Viraat Leader Chess Team members updated:",
+                    members.length
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Unable to load Lichess members:",
+                    error
+                );
+
+
+                status.textContent =
+                    "Unable to update members. Please try again later.";
+
+                lastUpdate.textContent = "Update failed";
+
+
+                if (members.length === 0) {
+
+                    count.textContent = "—";
+
+                    const message = document.createElement("p");
+
+                    message.className = "status";
+
+                    message.textContent =
+                        "Members are temporarily unavailable. Please visit our Lichess team page.";
+
+                    container.replaceChildren(message);
+
+                }
+
+            } finally {
+
+                isLoading = false;
+
+            }
+
+        }
+
+
+        /*
+         * ==========================================
+         * SEARCH MEMBERS
+         * ==========================================
+         */
+
+        searchInput.addEventListener("input", () => {
+
+            renderMembers(searchInput.value);
+
+        });
+
+
+        /*
+         * ==========================================
+         * INITIAL LOAD
+         * ==========================================
+         */
+
+        loadMembers();
+
+
+        /*
+         * ==========================================
+         * AUTOMATIC UPDATE EVERY 30 SECONDS
+         * ==========================================
+         */
+
+        setInterval(loadMembers, UPDATE_INTERVAL);
+
+    </script>
+
+</body>
+</html>

@@ -1,227 +1,296 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viraat Leader Chess Team for GM</title>
-    <style>
-        :root {
-            --bg-color: #161512;
-            --card-bg: #262421;
-            --accent-color: #b58863;
-            --text-main: #bababa;
-            --text-light: #ffffff;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0b14">
+  <meta name="description" content="Join Viraat Leader Chess Team for GM on Lichess! Play chess, compete in team battles and grow together.">
+  <title>Viraat Leader Chess Team for GM ♟️</title>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
-
-        header {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://unsplash.com') center/cover;
-            padding: 60px 20px;
-            text-align: center;
-            border-bottom: 3px solid var(--accent-color);
-        }
-
-        header h1 {
-            color: var(--text-light);
-            margin: 0 0 10px 0;
-            font-size: 2.5rem;
-            letter-spacing: 1px;
-        }
-
-        header p {
-            color: var(--accent-color);
-            font-size: 1.2rem;
-            margin: 0;
-            font-weight: bold;
-        }
-
-        nav {
-            background-color: #1e1c18;
-            display: flex;
-            justify-content: center;
-            padding: 10px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #363431;
-        }
-
-        nav a {
-            color: var(--text-light);
-            text-decoration: none;
-            padding: 8px 16px;
-            margin: 0 5px;
-            font-weight: 500;
-            border-radius: 4px;
-            transition: background 0.3s;
-        }
-
-        nav a:hover {
-            background-color: var(--accent-color);
-            color: var(--bg-color);
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            padding: 25px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
-
-        h2 {
-            color: var(--text-light);
-            border-left: 4px solid var(--accent-color);
-            padding-left: 10px;
-            margin-top: 0;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--bg-color);
-            padding: 12px 24px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 4px;
-            margin-top: 15px;
-            transition: opacity 0.3s;
-            text-align: center;
-        }
-
-        .btn:hover {
-            opacity: 0.9;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            padding: 8px 0;
-            border-bottom: 1px solid #363431;
-        }
-
-        li:last-child {
-            border-bottom: none;
-        }
-
-        .leader-link {
-            color: var(--accent-color);
-            text-decoration: none;
-        }
-
-        .leader-link:hover {
-            text-decoration: underline;
-        }
-
-        footer {
-            background-color: #12110f;
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            font-size: 0.9rem;
-            border-top: 1px solid #262421;
-        }
-    </style>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header>
-        <h1>Viraat Leader Chess Team for GM</h1>
-        <p>🥇 Masters of Chess — We Never Resign! 🥇</p>
-        <a href="https://lichess.org/team/viraat-leader-chess-team-for-gm" target="_blank" class="btn">Join Our Lichess Team</a>
-    </header>
-
-    <nav>
-        <a href="#about">About</a>
-        <a href="#leaders">Leadership</a>
-        <a href="#battles">Team Battles</a>
-        <a href="#partners">Partner Teams</a>
-    </nav>
-
-    <div class="container">
-        <div class="grid">
-            <main>
-                <section id="about" class="card">
-                    <h2>Welcome to Our Academy</h2>
-                    <p>Founded by <strong>@ViraatReddy</strong>, we are a community dedicated to helping chess players level up their skills, climb the ranks, and push towards Grandmaster status. We have a dream of growing to 500-1000 players!</p>
-                    <p>Want to become a leader? Bring 2-4 members into the group, reach at least 10 tournament points in team battles, and stay generous and polite!</p>
-                </section>
-
-                <section id="battles" class="card">
-                    <h2>⚔️ Daily Team Battles</h2>
-                    <p>Gear up! We run team battles and arena tournaments regularly. Contact one of our leaders to secure your spot or organize a challenge.</p>
-                    <a href="https://lichess.org" target="_blank" class="btn">View Current Lichess Tournaments</a>
-                </section>
-
-                <section id="partners" class="card">
-                    <h2>🤝 Friend & Partner Teams</h2>
-                    <p>Make sure to check out our extended network and join our partner divisions:</p>
-                    <ul>
-                        <li>🔗 <a href="https://lichess.org" target="_blank" class="leader-link">Speed Chess Academy</a></li>
-                        <li>🔗 <a href="https://lichess.org" target="_blank" class="leader-link">Cricket Pros</a></li>
-                        <li>🔗 <a href="https://lichess.org" target="_blank" class="leader-link">Players That Play Chess</a></li>
-                    </ul>
-                </section>
-            </main>
-
-            <aside>
-                <section id="leaders" class="card">
-                    <h2>👑 Leadership Team</h2>
-                    <ul>
-                        <li><strong>Main Leader:</strong> <a class="leader-link" href="https://lichess.org" target="_blank">@ViraatReddy</a></li>
-                        <li><strong>Manager:</strong> <a class="leader-link" href="https://lichess.org" target="_blank">@SaidevsGambit</a></li>
-                        <li><strong>Manager:</strong> <a class="leader-link" href="https://lichess.org" target="_blank">@reyanshpradhan</a></li>
-                        <li><strong>Organiser:</strong> <a class="leader-link" href="https://lichess.org" target="_blank">@EhrenChessmaster</a></li>
-                        <li><strong>Co-Leader:</strong> <a class="leader-link" href="https://lichess.org" target="_blank">@tnelli13</a></li>
-                    </ul>
-                </section>
-
-                <section class="card">
-                    <h2>🏆 Leaderboard Points</h2>
-                    <ul>
-                        <li>🥇 BotKumudan_Chess - 35 pts</li>
-                        <li>🥈 tnelli13 - 30 pts</li>
-                        <li>🥉 Keshav Kumar Gautam - 15 pts</li>
-                        <li>🏅 saidevsgambit - 15 pts</li>
-                        <li>🏅 redyapradhan - 10 pts</li>
-                    </ul>
-                </section>
-            </aside>
-        </div>
+<header>
+  <nav>
+    <a class="brand" href="index.html">♟ VIRAAT CHESS</a>
+    <div class="links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#leaders">Leaders</a>
+      <a href="members.html">Members</a>
+      <a href="#join">Join Us</a>
     </div>
+  </nav>
+</header>
 
-    <footer>
-        <p>&copy; 2026 Viraat Leader Chess Team for GM. Website created thanks to @Team_Godz & @ViraatReddy.</p>
-    </footer>
+<main>
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <img
+        class="logo"
+        src="https://image.lichess1.org/display?op=noop&path=-wHUg3ZPcApX.png&sig=a97cd5ea07b5f0c2ef4ba3ad16b2d394cfc57a14"
+        alt="Viraat Chess Team Logo"
+      >
+
+      <div class="eyebrow">Welcome to our chess community</div>
+
+      <h1>VIRAAT <span>LEADER</span><br>CHESS TEAM FOR GM</h1>
+
+      <p>
+        Welcome to our chess community! Play with us, participate
+        in team battles, improve your skills and build your chess
+        future together. Our dream is to bring together 500–1000 players!
+      </p>
+
+      <div class="buttons">
+        <a class="btn primary"
+           href="https://lichess.org/team/viraat-leader-chess-team-for-gm"
+           target="_blank" rel="noopener noreferrer">
+          ♟ Join on Lichess
+        </a>
+
+        <a class="btn secondary" href="members.html">
+          👥 View Members
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="section-title">
+        <small>OUR COMMUNITY</small>
+        <h2>About Our Team</h2>
+        <p>One team, one passion, one goal: improving together.</p>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">♟️</div>
+          <h3>Improve Together</h3>
+          <p>
+            Share your knowledge, discover new strategies
+            and develop your chess skills with other players.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🏆</div>
+          <h3>Team Battles</h3>
+          <p>
+            Participate in our tournaments and team battles
+            on Lichess and proudly represent our team.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🌍</div>
+          <h3>Our Dream</h3>
+          <p>
+            Build a large international community
+            of 500–1000 chess enthusiasts.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEADERS -->
+  <section class="dark-section" id="leaders">
+    <div class="container">
+      <div class="section-title">
+        <small>OUR TEAM</small>
+        <h2>Our Leaders</h2>
+        <p>Meet the people who help organise and grow our community.</p>
+      </div>
+
+      <div class="cards">
+        <div class="card leader">
+          <div class="avatar">👑</div>
+          <div class="role">Founder & Main Leader</div>
+          <h3>Viraat Reddy</h3>
+          <a href="https://lichess.org/@/ViraatReddy"
+             target="_blank" rel="noopener noreferrer">
+            @ViraatReddy ↗
+          </a>
+        </div>
+
+        <div class="card leader">
+          <div class="avatar">♛</div>
+          <div class="role">Manager</div>
+          <h3>SaidevsGambit</h3>
+          <a href="https://lichess.org/@/SaidevsGambit"
+             target="_blank" rel="noopener noreferrer">
+            @SaidevsGambit ↗
+          </a>
+        </div>
+
+        <div class="card leader">
+          <div class="avatar">♞</div>
+          <div class="role">Manager</div>
+          <h3>Reyansh Pradhan</h3>
+          <a href="https://lichess.org/@/reyanshpradhan"
+             target="_blank" rel="noopener noreferrer">
+            @reyanshpradhan ↗
+          </a>
+        </div>
+
+        <div class="card leader">
+          <div class="avatar">⚔️</div>
+          <div class="role">Co-Leader</div>
+          <h3>tnelli13</h3>
+          <a href="https://lichess.org/@/tnelli13"
+             target="_blank" rel="noopener noreferrer">
+            @tnelli13 ↗
+          </a>
+        </div>
+
+        <div class="card leader">
+          <div class="avatar">🏅</div>
+          <div class="role">Team Leader</div>
+          <h3>Keshav Kumar Gautam</h3>
+          <a href="https://lichess.org/"
+             target="_blank" rel="noopener noreferrer">
+            Lichess ↗
+          </a>
+        </div>
+
+        <div class="card leader">
+          <div class="avatar">♜</div>
+          <div class="role">Website Contributor</div>
+          <h3>Team_Godz</h3>
+          <a href="https://lichess.org/@/Team_Godz"
+             target="_blank" rel="noopener noreferrer">
+            @Team_Godz ↗
+          </a>
+        </div>
+      </div>
+
+      <p style="text-align:center;color:#aaaaba;font-size:12px;margin-top:18px">
+        Team roles are based on the information provided and may change.
+      </p>
+    </div>
+  </section>
+
+  <!-- MEMBERS -->
+  <section id="members">
+    <div class="container">
+      <div class="section-title">
+        <small>OUR COMMUNITY</small>
+        <h2>Our Members</h2>
+        <p>Discover the players in our Lichess team.</p>
+      </div>
+
+      <div class="notice">
+        <div style="font-size:38px">👥</div>
+        <h3>Meet Our Players</h3>
+        <p>
+          Explore our team members, search for usernames
+          and visit their Lichess profiles.
+        </p>
+        <div class="buttons">
+          <a class="btn primary" href="members.html">
+            View All Members
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOURNAMENTS -->
+  <section class="dark-section" id="tournaments">
+    <div class="container">
+      <div class="section-title">
+        <small>COMPETITION</small>
+        <h2>Tournaments & Battles</h2>
+        <p>Play together and represent our team in competitions.</p>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">⚔️</div>
+          <h3>Team Battles</h3>
+          <p>
+            Take part in team battles organised for our community.
+            Contact a team leader for information about upcoming events.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🏆</div>
+          <h3>Lichess Tournaments</h3>
+          <p>
+            Visit our team on Lichess and discover
+            the tournaments you can participate in.
+          </p>
+          <a class="link"
+             href="https://lichess.org/team/viraat-leader-chess-team-for-gm"
+             target="_blank" rel="noopener noreferrer">
+            Visit Our Team ↗
+          </a>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🌟</div>
+          <h3>Rewards</h3>
+          <p>
+            Points and awards may be given for participation,
+            achievements and contributions to the team.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN -->
+  <section id="join">
+    <div class="container">
+      <div class="notice">
+        <div style="font-size:42px">♛</div>
+        <h3>Join Viraat Leader Chess Team for GM!</h3>
+        <p>
+          Love chess? Want to play with other enthusiasts,
+          learn new skills and participate in team battles?
+          Everyone is welcome to join our chess community!
+        </p>
+
+        <div class="buttons">
+          <a class="btn primary"
+             href="https://lichess.org/team/viraat-leader-chess-team-for-gm"
+             target="_blank" rel="noopener noreferrer">
+            ♟ Join Our Team
+          </a>
+
+          <a class="btn secondary"
+             href="https://lichess.org/@/ViraatReddy"
+             target="_blank" rel="noopener noreferrer">
+            Contact the Founder
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p><strong>♟ VIRAAT LEADER CHESS TEAM FOR GM</strong></p>
+  <p>Founded by Viraat Reddy · October 2025</p>
+  <p style="margin-top:8px">
+    A community united by the love of chess. ♛
+  </p>
+  <p style="margin-top:12px">
+    <a href="https://lichess.org/team/viraat-leader-chess-team-for-gm"
+       target="_blank" rel="noopener noreferrer">
+      Our Official Lichess Team ↗
+    </a>
+  </p>
+</footer>
 
 </body>
 </html>
