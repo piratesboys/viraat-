@@ -1,18 +1,17 @@
 ```html
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta
         name="description"
-        content="Découvrez les membres de Viraat Leader Chess Team for GM."
+        content="Meet the members of Viraat Leader Chess Team for GM."
     >
 
-    <title>Nos Membres | Viraat Leader Chess Team for GM</title>
+    <title>Our Members | Viraat Leader Chess Team for GM</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -29,16 +28,16 @@
             </a>
 
             <div class="links">
-                <a href="index.html">Accueil</a>
+                <a href="index.html">Home</a>
 
-                <a href="members.html">Membres</a>
+                <a href="members.html">Members</a>
 
                 <a
                     href="https://lichess.org/team/viraat-leader-chess-team-for-gm"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Équipe Lichess
+                    Lichess Team
                 </a>
             </div>
         </nav>
@@ -46,15 +45,15 @@
         <!-- TITLE -->
         <div class="hero-content">
 
-            <p class="eyebrow">NOTRE COMMUNAUTÉ</p>
+            <p class="eyebrow">OUR COMMUNITY</p>
 
             <h1>
-                Nos <span>Membres</span>
+                Our <span>Members</span>
             </h1>
 
             <p>
-                Découvrez les joueurs de Viraat Leader Chess Team for GM
-                et notre communauté d'échecs.
+                Meet the players of Viraat Leader Chess Team for GM
+                and discover our chess community.
             </p>
 
             <div class="buttons">
@@ -65,14 +64,14 @@
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Rejoindre notre équipe
+                    Join Our Team
                 </a>
 
                 <a
                     href="index.html"
                     class="btn secondary"
                 >
-                    Retour à l'accueil
+                    Back to Home
                 </a>
 
             </div>
@@ -93,10 +92,10 @@
 
                     <strong id="member-count">—</strong>
 
-                    <span>Membres de l'équipe</span>
+                    <span>Team Members</span>
 
                     <p id="last-update">
-                        En attente des données...
+                        Waiting for data...
                     </p>
 
                 </div>
@@ -107,8 +106,8 @@
                     type="search"
                     id="member-search"
                     class="search"
-                    placeholder="Rechercher un membre..."
-                    aria-label="Rechercher un membre"
+                    placeholder="Search for a member..."
+                    aria-label="Search for a member"
                     autocomplete="off"
                 >
 
@@ -120,7 +119,7 @@
                     role="status"
                     aria-live="polite"
                 >
-                    Connexion à Lichess...
+                    Connecting to Lichess...
                 </p>
 
 
@@ -134,13 +133,11 @@
                 <!-- JOIN NOTICE -->
                 <div class="notice">
 
-                    <h3>
-                        Devenir membre
-                    </h3>
+                    <h3>Become a Member</h3>
 
                     <p>
-                        Rejoins notre équipe sur Lichess, joue aux échecs,
-                        participe aux tournois et progresse avec nous.
+                        Join our team on Lichess, play chess,
+                        take part in tournaments and improve together.
                     </p>
 
                     <a
@@ -149,7 +146,7 @@
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        Rejoindre sur Lichess
+                        Join on Lichess
                     </a>
 
                 </div>
@@ -178,11 +175,9 @@
     <!-- JAVASCRIPT -->
     <script>
 
-        /*
-         * ==========================================
-         * CONFIGURATION
-         * ==========================================
-         */
+        /* ==========================================
+           CONFIGURATION
+        ========================================== */
 
         const TEAM_ID =
             "viraat-leader-chess-team-for-gm";
@@ -193,11 +188,9 @@
         const UPDATE_INTERVAL = 30000;
 
 
-        /*
-         * ==========================================
-         * ELEMENTS HTML
-         * ==========================================
-         */
+        /* ==========================================
+           HTML ELEMENTS
+        ========================================== */
 
         const container =
             document.getElementById("members");
@@ -215,22 +208,17 @@
             document.getElementById("member-search");
 
 
-        /*
-         * ==========================================
-         * VARIABLES
-         * ==========================================
-         */
+        /* ==========================================
+           VARIABLES
+        ========================================== */
 
         let members = [];
-
         let isLoading = false;
 
 
-        /*
-         * ==========================================
-         * AFFICHER LES MEMBRES
-         * ==========================================
-         */
+        /* ==========================================
+           RENDER MEMBERS
+        ========================================== */
 
         function renderMembers(filter = "") {
 
@@ -244,14 +232,11 @@
                         .includes(query)
                 );
 
-
             const fragment =
                 document.createDocumentFragment();
 
 
-            /*
-             * Aucun résultat
-             */
+            /* No results */
 
             if (filteredMembers.length === 0) {
 
@@ -262,8 +247,8 @@
 
                 message.textContent =
                     members.length > 0
-                        ? "Aucun membre ne correspond à votre recherche."
-                        : "Aucun membre trouvé.";
+                        ? "No members match your search."
+                        : "No members found.";
 
                 container.replaceChildren(message);
 
@@ -271,9 +256,7 @@
             }
 
 
-            /*
-             * Création des cartes
-             */
+            /* Create member cards */
 
             filteredMembers.forEach(member => {
 
@@ -281,9 +264,7 @@
                     member.username;
 
 
-                /*
-                 * CARD
-                 */
+                /* MEMBER CARD */
 
                 const card =
                     document.createElement("a");
@@ -302,9 +283,7 @@
                     "noopener noreferrer";
 
 
-                /*
-                 * AVATAR
-                 */
+                /* AVATAR */
 
                 const avatar =
                     document.createElement("img");
@@ -318,15 +297,13 @@
                     "/avatar";
 
                 avatar.alt =
-                    `Avatar de ${username}`;
+                    username + " avatar";
 
                 avatar.loading =
                     "lazy";
 
 
-                /*
-                 * Avatar de secours
-                 */
+                /* FALLBACK AVATAR */
 
                 avatar.onerror =
                     function () {
@@ -338,9 +315,7 @@
                     };
 
 
-                /*
-                 * NOM
-                 */
+                /* USERNAME */
 
                 const name =
                     document.createElement("h3");
@@ -349,9 +324,7 @@
                     username;
 
 
-                /*
-                 * PROFILE
-                 */
+                /* PROFILE LABEL */
 
                 const profile =
                     document.createElement("span");
@@ -360,17 +333,13 @@
                     "profile";
 
                 profile.textContent =
-                    "Voir le profil →";
+                    "View Profile →";
 
 
-                /*
-                 * AJOUT
-                 */
+                /* ADD ELEMENTS */
 
                 card.appendChild(avatar);
-
                 card.appendChild(name);
-
                 card.appendChild(profile);
 
                 fragment.appendChild(card);
@@ -382,11 +351,9 @@
         }
 
 
-        /*
-         * ==========================================
-         * CHARGER LES MEMBRES
-         * ==========================================
-         */
+        /* ==========================================
+           LOAD MEMBERS FROM LICHESS
+        ========================================== */
 
         async function loadMembers() {
 
@@ -396,18 +363,17 @@
 
             isLoading = true;
 
-
             try {
 
                 status.textContent =
-                    "Chargement des membres...";
+                    "Loading members...";
 
 
                 /*
-                 * L'API Lichess accepte notamment
-                 * le paramètre max.
+                 * Request members from Lichess.
                  *
-                 * On demande jusqu'à 100 membres.
+                 * max=100 allows up to 100 members
+                 * to be returned in one request.
                  */
 
                 const response =
@@ -423,21 +389,18 @@
                     );
 
 
-                /*
-                 * Vérification HTTP
-                 */
+                /* Check HTTP status */
 
                 if (!response.ok) {
 
                     throw new Error(
-                        `Erreur HTTP ${response.status}`
+                        "Lichess returned HTTP " +
+                        response.status
                     );
                 }
 
 
-                /*
-                 * Récupération du texte
-                 */
+                /* Read response */
 
                 const text =
                     (await response.text()).trim();
@@ -446,22 +409,18 @@
                 if (!text) {
 
                     throw new Error(
-                        "L'API Lichess a renvoyé une réponse vide."
+                        "Lichess returned an empty response."
                     );
                 }
 
 
                 /*
-                 * ======================================
-                 * PARSING JSONL
-                 * ======================================
+                 * Parse JSONL.
                  *
-                 * Lichess renvoie normalement :
+                 * Lichess normally returns:
                  *
                  * {"id":"...","username":"..."}
                  * {"id":"...","username":"..."}
-                 *
-                 * Une ligne = un utilisateur.
                  */
 
                 const lines =
@@ -481,14 +440,17 @@
                         const user =
                             JSON.parse(line);
 
-                        if (user && typeof user === "object") {
+                        if (
+                            user &&
+                            typeof user === "object"
+                        ) {
                             users.push(user);
                         }
 
                     } catch (error) {
 
                         console.warn(
-                            "Ligne JSON ignorée :",
+                            "Invalid JSON line ignored:",
                             line
                         );
                     }
@@ -496,9 +458,8 @@
 
 
                 /*
-                 * Sécurité :
-                 * si jamais Lichess renvoie directement
-                 * un tableau JSON.
+                 * Also support a normal JSON array
+                 * in case the API returns one.
                  */
 
                 if (
@@ -515,11 +476,7 @@
                 }
 
 
-                /*
-                 * ======================================
-                 * CONVERSION EN MEMBRES
-                 * ======================================
-                 */
+                /* Convert users to members */
 
                 const loadedMembers =
                     users
@@ -543,17 +500,10 @@
                         );
 
 
-                /*
-                 * ======================================
-                 * SUPPRESSION DES DOUBLONS
-                 * ======================================
-                 */
+                /* Remove duplicates */
 
-                const uniqueMembers =
-                    [];
-
-                const seen =
-                    new Set();
+                const uniqueMembers = [];
+                const seen = new Set();
 
 
                 for (const member of loadedMembers) {
@@ -570,11 +520,7 @@
                 }
 
 
-                /*
-                 * ======================================
-                 * TRI ALPHABÉTIQUE
-                 * ======================================
-                 */
+                /* Sort alphabetically */
 
                 members =
                     uniqueMembers.sort(
@@ -589,38 +535,26 @@
                     );
 
 
-                /*
-                 * ======================================
-                 * MISE À JOUR DU COMPTEUR
-                 * ======================================
-                 */
+                /* Update member count */
 
                 count.textContent =
                     members.length;
 
 
-                /*
-                 * ======================================
-                 * STATUT
-                 * ======================================
-                 */
+                /* Update status */
 
                 status.textContent =
-                    `${members.length} membre${members.length > 1 ? "s" : ""} chargé${members.length > 1 ? "s" : ""} avec succès.`;
+                    `${members.length} member${
+                        members.length !== 1 ? "s" : ""
+                    } loaded successfully.`;
 
 
                 lastUpdate.textContent =
-                    "Dernière mise à jour : " +
-                    new Date().toLocaleTimeString(
-                        "fr-FR"
-                    );
+                    "Last updated: " +
+                    new Date().toLocaleTimeString();
 
 
-                /*
-                 * ======================================
-                 * AFFICHAGE
-                 * ======================================
-                 */
+                /* Render members */
 
                 renderMembers(
                     searchInput.value
@@ -628,7 +562,7 @@
 
 
                 console.log(
-                    "Membres Lichess chargés :",
+                    "Viraat Leader Chess Team members updated:",
                     members.length
                 );
 
@@ -636,22 +570,22 @@
             } catch (error) {
 
                 console.error(
-                    "Impossible de charger les membres :",
+                    "Unable to load Lichess members:",
                     error
                 );
 
 
                 status.textContent =
-                    "Impossible de charger les membres depuis Lichess.";
+                    "Unable to load members from Lichess.";
 
 
                 lastUpdate.textContent =
-                    "Échec de la mise à jour";
+                    "Update failed";
 
 
                 /*
-                 * Si aucun membre n'a encore été chargé,
-                 * afficher un message.
+                 * Show an error only if we have
+                 * never successfully loaded members.
                  */
 
                 if (members.length === 0) {
@@ -667,7 +601,7 @@
                         "status";
 
                     message.textContent =
-                        "Les membres sont temporairement indisponibles. Consultez directement notre équipe Lichess.";
+                        "Members are temporarily unavailable. Please visit our Lichess team page.";
 
                     container.replaceChildren(
                         message
@@ -682,36 +616,32 @@
         }
 
 
-        /*
-         * ==========================================
-         * RECHERCHE
-         * ==========================================
-         */
+        /* ==========================================
+           SEARCH
+        ========================================== */
 
         searchInput.addEventListener(
             "input",
             () => {
+
                 renderMembers(
                     searchInput.value
                 );
+
             }
         );
 
 
-        /*
-         * ==========================================
-         * PREMIER CHARGEMENT
-         * ==========================================
-         */
+        /* ==========================================
+           INITIAL LOAD
+        ========================================== */
 
         loadMembers();
 
 
-        /*
-         * ==========================================
-         * ACTUALISATION AUTOMATIQUE
-         * ==========================================
-         */
+        /* ==========================================
+           AUTOMATIC UPDATE EVERY 30 SECONDS
+        ========================================== */
 
         setInterval(
             loadMembers,
