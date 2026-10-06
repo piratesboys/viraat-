@@ -1,6 +1,6 @@
 // ==========================================
-// FRANCE-DEUTSCHLAND GROUP
-// MEMBRES
+// VIRAAT LEADER CHESS TEAM FOR GM
+// MEMBERS
 // ==========================================
 
 
@@ -16,7 +16,7 @@ const UPDATE_INTERVAL = 30000;
 
 
 // ==========================================
-// RECHERCHE
+// MEMBER SEARCH
 // ==========================================
 
 function setupMemberSearch() {
@@ -86,7 +86,7 @@ function setupMemberSearch() {
 
 
 // ==========================================
-// CHARGER LES MEMBRES
+// LOAD MEMBERS
 // ==========================================
 
 async function loadMembers() {
@@ -107,7 +107,7 @@ async function loadMembers() {
 
 
         // ==================================
-        // DEMANDE À LICHESS
+        // REQUEST TO LICHESS
         // ==================================
 
         const response =
@@ -121,13 +121,13 @@ async function loadMembers() {
 
 
         // ==================================
-        // VÉRIFICATION
+        // CHECK RESPONSE
         // ==================================
 
         if (!response.ok) {
 
             throw new Error(
-                "Erreur HTTP Lichess : " +
+                "Lichess API error: " +
                 response.status
             );
 
@@ -135,7 +135,7 @@ async function loadMembers() {
 
 
         // ==================================
-        // RÉCUPÉRATION DU JSONL
+        // GET JSONL DATA
         // ==================================
 
         const text =
@@ -156,7 +156,7 @@ async function loadMembers() {
 
 
         // ==================================
-        // AUCUN MEMBRE
+        // NO MEMBERS
         // ==================================
 
         if (members.length === 0) {
@@ -167,9 +167,7 @@ async function loadMembers() {
             container.innerHTML = `
 
                 <p>
-                    Aucun membre trouvé.
-                    /
-                    Keine Mitglieder gefunden.
+                    No members found.
                 </p>
 
             `;
@@ -181,7 +179,7 @@ async function loadMembers() {
 
 
         // ==================================
-        // NOMBRE DE MEMBRES
+        // MEMBER COUNT
         // ==================================
 
         count.textContent =
@@ -189,7 +187,7 @@ async function loadMembers() {
 
 
         // ==================================
-        // CRÉATION DU FRAGMENT
+        // CREATE FRAGMENT
         // ==================================
 
         const fragment =
@@ -197,7 +195,7 @@ async function loadMembers() {
 
 
         // ==================================
-        // CRÉATION DES CARTES
+        // CREATE MEMBER CARDS
         // ==================================
 
         members.forEach(
@@ -205,7 +203,7 @@ async function loadMembers() {
 
 
                 // ==========================
-                // NOM D'UTILISATEUR
+                // USERNAME
                 // ==========================
 
                 const username =
@@ -220,7 +218,7 @@ async function loadMembers() {
 
 
                 // ==========================
-                // CARTE
+                // CARD
                 // ==========================
 
                 const card =
@@ -232,7 +230,7 @@ async function loadMembers() {
 
 
                 // ==========================
-                // LIEN LICHESS
+                // LICHESS PROFILE LINK
                 // ==========================
 
                 card.href =
@@ -267,9 +265,7 @@ async function loadMembers() {
 
 
                 avatar.alt =
-                    "Avatar de " +
-                    username +
-                    " / Avatar von " +
+                    "Avatar of " +
                     username;
 
 
@@ -278,7 +274,7 @@ async function loadMembers() {
 
 
                 // ==========================
-                // AVATAR PAR DÉFAUT
+                // DEFAULT AVATAR
                 // ==========================
 
                 avatar.onerror =
@@ -296,7 +292,7 @@ async function loadMembers() {
 
 
                 // ==========================
-                // NOM
+                // USERNAME
                 // ==========================
 
                 const name =
@@ -312,7 +308,7 @@ async function loadMembers() {
 
 
                 // ==========================
-                // AJOUT À LA CARTE
+                // ADD ELEMENTS TO CARD
                 // ==========================
 
                 card.appendChild(
@@ -334,7 +330,7 @@ async function loadMembers() {
 
 
         // ==================================
-        // AFFICHAGE
+        // DISPLAY MEMBERS
         // ==================================
 
         container.innerHTML = "";
@@ -346,7 +342,7 @@ async function loadMembers() {
 
 
         // ==================================
-        // DERNIÈRE MISE À JOUR
+        // LAST UPDATE
         // ==================================
 
         const now =
@@ -355,7 +351,7 @@ async function loadMembers() {
 
         const time =
             now.toLocaleTimeString(
-                "fr-FR",
+                "en-GB",
                 {
                     hour: "2-digit",
                     minute: "2-digit",
@@ -365,9 +361,7 @@ async function loadMembers() {
 
 
         lastUpdate.textContent =
-            "Dernière mise à jour : " +
-            time +
-            " / Letzte Aktualisierung: " +
+            "Last updated: " +
             time;
 
 
@@ -376,7 +370,7 @@ async function loadMembers() {
         // ==================================
 
         console.log(
-            "Membres FDG mis à jour :",
+            "Viraat Chess Team members updated:",
             members.length
         );
 
@@ -385,11 +379,11 @@ async function loadMembers() {
 
 
         // ==================================
-        // ERREUR
+        // ERROR
         // ==================================
 
         console.error(
-            "Impossible de charger les membres :",
+            "Unable to load team members:",
             error
         );
 
@@ -402,17 +396,11 @@ async function loadMembers() {
 
             <p>
 
-                Impossible de mettre à jour
-                les membres.
-                /
-                Mitglieder konnten nicht
-                aktualisiert werden.
+                Unable to load team members.
 
                 <br><br>
 
-                Veuillez réessayer plus tard.
-                /
-                Bitte später erneut versuchen.
+                Please try again later.
 
             </p>
 
@@ -420,8 +408,7 @@ async function loadMembers() {
 
 
         lastUpdate.textContent =
-            "Échec de la mise à jour / " +
-            "Aktualisierung fehlgeschlagen";
+            "Update failed";
 
     }
 
@@ -429,7 +416,7 @@ async function loadMembers() {
 
 
 // ==========================================
-// DÉMARRAGE
+// START
 // ==========================================
 
 loadMembers();
@@ -438,7 +425,7 @@ setupMemberSearch();
 
 
 // ==========================================
-// MISE À JOUR AUTOMATIQUE
+// AUTOMATIC UPDATE
 // ==========================================
 
 setInterval(
