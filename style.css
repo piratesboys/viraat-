@@ -647,3 +647,249 @@ input:focus-visible {
     text-align: center;
     width: 100%;
 }
+
+/* =================================
+   MEMBERS PAGE - API MEMBERS
+================================= */
+
+.members-section {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 75px 20px;
+}
+
+.members-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+/* =================================
+   MEMBER COUNT
+================================= */
+
+.members-count {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+    text-align: center;
+}
+
+#member-count {
+    color: var(--gold);
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.count-label {
+    color: var(--muted);
+    font-size: 15px;
+}
+
+
+/* =================================
+   MEMBER SEARCH
+================================= */
+
+.member-search {
+    width: 100%;
+    max-width: 600px;
+
+    margin: 0 auto 25px;
+}
+
+.member-search input {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    color: white;
+    background: var(--card);
+
+    border: 1px solid #343446;
+    border-radius: 8px;
+
+    outline: none;
+
+    font-size: 15px;
+
+    transition: var(--transition);
+}
+
+.member-search input::placeholder {
+    color: #888899;
+}
+
+.member-search input:focus {
+    border-color: var(--gold);
+
+    box-shadow:
+        0 0 12px #f6c45322;
+}
+
+
+/* =================================
+   LAST UPDATE
+================================= */
+
+.last-update {
+    color: var(--muted);
+
+    text-align: center;
+
+    font-size: 12px;
+
+    margin-bottom: 30px;
+}
+
+
+/* =================================
+   MEMBERS GRID
+================================= */
+
+#members {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(220px, 1fr)
+        );
+
+    gap: 15px;
+}
+
+
+/* =================================
+   MEMBER CARD
+================================= */
+
+.member-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 18px;
+
+    color: var(--text);
+
+    background: var(--card);
+
+    border:
+        1px solid #303044;
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+
+    animation:
+        fadeIn 0.4s ease both;
+}
+
+.member-card:hover {
+    transform: translateY(-4px);
+
+    background: var(--card-hover);
+
+    border-color: var(--gold);
+
+    box-shadow:
+        0 8px 25px #0004;
+}
+
+
+/* =================================
+   MEMBER AVATAR
+================================= */
+
+.member-avatar {
+    width: 55px;
+    height: 55px;
+
+    flex-shrink: 0;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    border:
+        2px solid var(--gold);
+
+    background: #28283b;
+}
+
+
+/* =================================
+   MEMBER NAME
+================================= */
+
+.member-name {
+    overflow: hidden;
+
+    color: var(--text);
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+/* =================================
+   LOADING / ERROR
+================================= */
+
+#members > p {
+    grid-column: 1 / -1;
+
+    color: var(--muted);
+
+    text-align: center;
+
+    padding: 25px;
+}
+
+
+/* =================================
+   MOBILE
+================================= */
+
+@media (max-width: 650px) {
+
+    .members-section {
+        padding:
+            55px 17px;
+    }
+
+    #members {
+        grid-template-columns: 1fr;
+    }
+
+    .members-count {
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 2px;
+    }
+
+    #member-count {
+        font-size: 28px;
+    }
+
+}
