@@ -80,638 +80,84 @@
     </header>
 
 
-    <!-- MEMBERS SECTION -->
-    <main class="dark-section">
+    <!-- ================================= -->
+    <!-- MEMBRES -->
+    <!-- ================================= -->
 
-        <section>
-            <div class="container">
-
-                <!-- MEMBER COUNT -->
-                <div class="stats">
-
-                    <strong id="member-count">—</strong>
-
-                    <span>Team Members</span>
-
-                    <p id="last-update">
-                        Waiting for data...
-                    </p>
-
-                </div>
+    <section class="members-section">
 
 
-                <!-- SEARCH -->
-                <input
-                    type="search"
-                    id="member-search"
-                    class="search"
-                    placeholder="Search for a member..."
-                    aria-label="Search for a member"
-                    autocomplete="off"
-                >
+        <h2>
+            Membres/Mitglieder
+        </h2>
 
 
-                <!-- STATUS -->
-                <p
-                    id="status"
-                    class="status"
-                    role="status"
-                    aria-live="polite"
-                >
-                    Connecting to Lichess...
-                </p>
+        <!-- ================================= -->
+        <!-- NOMBRE DE MEMBRES -->
+        <!-- ================================= -->
+
+        <div class="members-count">
+
+            <span id="member-count">
+                Chargement... / Laden...
+            </span>
+
+            <span class="count-label">
+                membres/Mitglieder
+            </span>
+
+        </div>
 
 
-                <!-- MEMBERS GRID -->
-                <div
-                    id="members"
-                    class="grid"
-                ></div>
+        <!-- ================================= -->
+        <!-- RECHERCHE -->
+        <!-- ================================= -->
+
+        <div class="member-search">
+
+            <input
+                type="search"
+                id="member-search"
+                placeholder="Rechercher un membre / Mitglied suchen..."
+                autocomplete="off"
+            >
+
+        </div>
 
 
-                <!-- JOIN NOTICE -->
-                <div class="notice">
+        <!-- ================================= -->
+        <!-- DERNIÈRE MISE À JOUR -->
+        <!-- ================================= -->
 
-                    <h3>Become a Member</h3>
+        <p
+            id="last-update"
+            class="last-update"
+        >
+            Mise à jour... / Aktualisierung...
+        </p>
 
-                    <p>
-                        Join our team on Lichess, play chess,
-                        take part in tournaments and improve together.
-                    </p>
 
-                    <a
-                        href="https://lichess.org/team/viraat-leader-chess-team-for-gm"
-                        class="btn primary"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Join on Lichess
-                    </a>
+        <!-- ================================= -->
+        <!-- LISTE DES MEMBRES -->
+        <!-- ================================= -->
 
-                </div>
+        <div id="members">
 
-            </div>
-        </section>
+            <p class="loading">
+                Chargement des membres...
+                /
+                Mitglieder werden geladen...
+            </p>
+
+        </div>
+
+
+    </section>
 
     </main>
 
 
-    <!-- FOOTER -->
-    <footer>
-
-        <p>
-            © 2026
-            <strong>Viraat Leader Chess Team for GM</strong>
-        </p>
-
-        <p>
-            Powered by Lichess
-        </p>
-
-    </footer>
-
-
-    <!-- JAVASCRIPT -->
-<script>
-
-    /*
-     * ==========================================
-     * CONFIGURATION
-     * ==========================================
-     */
-
-    const API_URL =
-        "https://lichess.org/api/team/viraat-leader-chess-team-for-gm/users";
-
-    const UPDATE_INTERVAL = 30000;
-
-
-    /*
-     * ==========================================
-     * HTML ELEMENTS
-     * ==========================================
-     */
-
-    const container =
-        document.getElementById("members");
-
-    const count =
-        document.getElementById("member-count");
-
-    const lastUpdate =
-        document.getElementById("last-update");
-
-    const status =
-        document.getElementById("status");
-
-    const searchInput =
-        document.getElementById("member-search");
-
-
-    /*
-     * ==========================================
-     * DATA
-     * ==========================================
-     */
-
-    let members = [];
-
-    let isLoading = false;
-
-
-    /*
-     * ==========================================
-     * DISPLAY MEMBERS
-     * ==========================================
-     */
-
-    function renderMembers(filter = "") {
-
-        const query =
-            filter.trim().toLowerCase();
-
-
-        const filteredMembers =
-            members.filter(member =>
-                member.username
-                    .toLowerCase()
-                    .includes(query)
-            );
-
-
-        const fragment =
-            document.createDocumentFragment();
-
-
-        /*
-         * No results
-         */
-
-        if (filteredMembers.length === 0) {
-
-            const message =
-                document.createElement("p");
-
-            message.className =
-                "status";
-
-            message.textContent =
-                members.length > 0
-                    ? "No members match your search."
-                    : "No members found.";
-
-            container.replaceChildren(message);
-
-            return;
-        }
-
-
-        /*
-         * Create member cards
-         */
-
-        filteredMembers.forEach(member => {
-
-            const username =
-                member.username;
-
-
-            /*
-             * MEMBER CARD
-             */
-
-            const card =
-                document.createElement("a");
-
-            card.className =
-                "member";
-
-            card.href =
-                "https://lichess.org/@" +
-                encodeURIComponent(username);
-
-            card.target =
-                "_blank";
-
-            card.rel =
-                "noopener noreferrer";
-
-
-            /*
-             * AVATAR
-             */
-
-            const avatar =
-                document.createElement("img");
-
-            avatar.className =
-                "avatar";
-
-            avatar.src =
-                "https://lichess1.org/user/" +
-                encodeURIComponent(username) +
-                "/avatar";
-
-            avatar.alt =
-                username + " avatar";
-
-            avatar.loading =
-                "lazy";
-
-
-            /*
-             * FALLBACK AVATAR
-             */
-
-            avatar.onerror =
-                function () {
-
-                    this.onerror = null;
-
-                    this.src =
-                        "https://lichess1.org/assets/logo/lichess-favicon-512.png";
-
-                };
-
-
-            /*
-             * USERNAME
-             */
-
-            const name =
-                document.createElement("h3");
-
-            name.textContent =
-                username;
-
-
-            /*
-             * PROFILE LABEL
-             */
-
-            const profile =
-                document.createElement("span");
-
-            profile.className =
-                "profile";
-
-            profile.textContent =
-                "View Profile";
-
-
-            /*
-             * ADD ELEMENTS
-             */
-
-            card.appendChild(avatar);
-
-            card.appendChild(name);
-
-            card.appendChild(profile);
-
-            fragment.appendChild(card);
-
-        });
-
-
-        /*
-         * DISPLAY
-         */
-
-        container.replaceChildren(fragment);
-
-    }
-
-
-    /*
-     * ==========================================
-     * LOAD MEMBERS FROM LICHESS
-     * ==========================================
-     */
-
-    async function loadMembers() {
-
-        /*
-         * Prevent multiple requests
-         * at the same time.
-         */
-
-        if (isLoading) {
-            return;
-        }
-
-        isLoading = true;
-
-
-        try {
-
-            status.textContent =
-                "Connecting to Lichess...";
-
-
-            /*
-             * Request the team members.
-             *
-             * max=1000 allows a large number of
-             * members to be returned.
-             */
-
-            const response =
-                await fetch(
-                    API_URL + "?max=1000",
-                    {
-                        method: "GET",
-                        cache: "no-store",
-                        headers: {
-                            "Accept": "application/x-ndjson"
-                        }
-                    }
-                );
-
-
-            /*
-             * Check HTTP response.
-             */
-
-            if (!response.ok) {
-
-                throw new Error(
-                    "Lichess returned HTTP " +
-                    response.status
-                );
-
-            }
-
-
-            /*
-             * Get raw response.
-             */
-
-            const text =
-                await response.text();
-
-
-            if (!text.trim()) {
-
-                throw new Error(
-                    "Lichess returned an empty response."
-                );
-
-            }
-
-
-            /*
-             * ======================================
-             * PARSE NDJSON
-             * ======================================
-             *
-             * Lichess sends one JSON object
-             * per line.
-             */
-
-            const lines =
-                text
-                    .split(/\r?\n/)
-                    .map(line => line.trim())
-                    .filter(Boolean);
-
-
-            const loadedMembers = [];
-
-
-            for (const line of lines) {
-
-                try {
-
-                    const user =
-                        JSON.parse(line);
-
-
-                    /*
-                     * Lichess users normally have
-                     * a "username" property.
-                     */
-
-                    const username =
-                        user.username ||
-                        user.id ||
-                        user.name;
-
-
-                    if (
-                        typeof username === "string" &&
-                        username.trim() !== ""
-                    ) {
-
-                        loadedMembers.push({
-                            username: username.trim()
-                        });
-
-                    }
-
-                } catch (error) {
-
-                    console.warn(
-                        "Could not parse member:",
-                        line
-                    );
-
-                }
-
-            }
-
-
-            /*
-             * ======================================
-             * REMOVE DUPLICATES
-             * ======================================
-             */
-
-            const uniqueMembers =
-                new Map();
-
-
-            loadedMembers.forEach(member => {
-
-                const key =
-                    member.username.toLowerCase();
-
-
-                if (!uniqueMembers.has(key)) {
-
-                    uniqueMembers.set(
-                        key,
-                        member
-                    );
-
-                }
-
-            });
-
-
-            /*
-             * ======================================
-             * SORT MEMBERS
-             * ======================================
-             */
-
-            members =
-                Array.from(
-                    uniqueMembers.values()
-                ).sort(
-                    (a, b) =>
-                        a.username.localeCompare(
-                            b.username
-                        )
-                );
-
-
-            /*
-             * ======================================
-             * UPDATE COUNT
-             * ======================================
-             */
-
-            count.textContent =
-                members.length;
-
-
-            /*
-             * ======================================
-             * UPDATE STATUS
-             * ======================================
-             */
-
-            status.textContent =
-                "Members loaded successfully.";
-
-
-            lastUpdate.textContent =
-                "Last updated: " +
-                new Date().toLocaleTimeString();
-
-
-            /*
-             * ======================================
-             * DISPLAY MEMBERS
-             * ======================================
-             */
-
-            renderMembers(
-                searchInput.value
-            );
-
-
-            /*
-             * DEBUG
-             */
-
-            console.log(
-                "Lichess members loaded:",
-                members.length
-            );
-
-
-        } catch (error) {
-
-            /*
-             * Display error in console.
-             */
-
-            console.error(
-                "Unable to load Lichess members:",
-                error
-            );
-
-
-            /*
-             * Do not delete members that
-             * were already loaded successfully.
-             */
-
-            if (members.length > 0) {
-
-                status.textContent =
-                    "Unable to refresh members. Showing previous data.";
-
-                lastUpdate.textContent =
-                    "Update failed";
-
-            } else {
-
-                count.textContent =
-                    "—";
-
-                status.textContent =
-                    "Unable to load members from Lichess.";
-
-                lastUpdate.textContent =
-                    "Update failed";
-
-
-                const message =
-                    document.createElement("p");
-
-                message.className =
-                    "status";
-
-                message.textContent =
-                    "Members are temporarily unavailable. Please visit our Lichess team page.";
-
-                container.replaceChildren(
-                    message
-                );
-
-            }
-
-        } finally {
-
-            isLoading = false;
-
-        }
-
-    }
-
-
-    /*
-     * ==========================================
-     * SEARCH
-     * ==========================================
-     */
-
-    searchInput.addEventListener(
-        "input",
-        () => {
-
-            renderMembers(
-                searchInput.value
-            );
-
-        }
-    );
-
-
-    /*
-     * ==========================================
-     * INITIAL LOAD
-     * ==========================================
-     */
-
-    loadMembers();
-
-
-    /*
-     * ==========================================
-     * AUTOMATIC UPDATE
-     * ==========================================
-     */
-
-    setInterval(
-        loadMembers,
-        UPDATE_INTERVAL
-    );
-
-</script>
+    <script src="members.js"></script>
     
 </body>
 
