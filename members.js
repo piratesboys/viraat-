@@ -350,36 +350,26 @@ async function loadMembers() {
     }
 
 
-    catch (error) {
+catch (error) {
 
-        // ==================================
-        // ERROR
-        // ==================================
+    console.error(
+        "MEMBERS API ERROR:",
+        error
+    );
 
-        console.error(
-            "Unable to load team members:",
-            error
-        );
+    count.textContent = "ERROR";
 
+    container.innerHTML = `
+        <p id="error">
+            Unable to load team members.
+            <br><br>
+            Error:
+            ${error.message}
+        </p>
+    `;
 
-        count.textContent =
-            "—";
-
-
-        container.innerHTML = `
-            <p id="error">
-                Unable to load team members.
-                <br><br>
-                Please try again later.
-            </p>
-        `;
-
-
-        lastUpdate.textContent =
-            "Update failed.";
-
-    }
-
+    lastUpdate.textContent =
+        "Update failed.";
 }
 
 
