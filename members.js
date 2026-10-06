@@ -8,22 +8,23 @@
 // CONFIGURATION
 // ==========================================
 
-const API_URL =
-    "https://lichess.org/api/team/viraat-leader-chess-team-for-gm/users";
+const TEAM_ID =
+    "viraat-leader-chess-team-for-gm";
 
+const API_URL =
+    `https://lichess.org/api/team/${TEAM_ID}/users`;
 
 const UPDATE_INTERVAL = 30000;
 
 
 // ==========================================
-// MEMBER SEARCH
+// SEARCH
 // ==========================================
 
 function setupMemberSearch() {
 
     const searchInput =
         document.getElementById("member-search");
-
 
     if (!searchInput) {
         return;
@@ -48,34 +49,25 @@ function setupMemberSearch() {
 
             cards.forEach(card => {
 
-                const nameElement =
-                    card.querySelector(
-                        ".member-name"
-                    );
+                const name =
+                    card
+                        .querySelector(".member-name");
 
 
-                if (!nameElement) {
+                if (!name) {
                     return;
                 }
 
 
                 const username =
-                    nameElement
-                        .textContent
+                    name.textContent
                         .toLowerCase();
 
 
-                if (
+                card.style.display =
                     username.includes(search)
-                ) {
-
-                    card.style.display = "";
-
-                } else {
-
-                    card.style.display = "none";
-
-                }
+                        ? ""
+                        : "flex";
 
             });
 
@@ -94,20 +86,38 @@ async function loadMembers() {
     const container =
         document.getElementById("members");
 
-
     const count =
         document.getElementById("member-count");
-
 
     const lastUpdate =
         document.getElementById("last-update");
 
 
+    if (!container || !count || !lastUpdate) {
+
+        console.error(
+            "Required HTML elements are missing."
+        );
+
+        return;
+    }
+
+
     try {
+
+        // ==================================
+        // LOADING MESSAGE
+        // ==================================
+
+        container.innerHTML = `
+            <p class="loading">
+                Loading team members...
+            </p>
+        `;
 
 
         // ==================================
-        // REQUEST TO LICHESS
+        // REQUEST LICHESS
         // ==================================
 
         const response =
@@ -121,38 +131,45 @@ async function loadMembers() {
 
 
         // ==================================
-        // CHECK RESPONSE
+        // CHECK HTTP STATUS
         // ==================================
 
         if (!response.ok) {
 
             throw new Error(
-                "Lichess API error: " +
-                response.status
+                `Lichess returned HTTP ${response.status}`
             );
 
         }
 
 
         // ==================================
-        // GET JSONL DATA
+        // READ RESPONSE
         // ==================================
 
         const text =
             await response.text();
 
 
+        if (!text.trim()) {
+
+            throw new Error(
+                "Lichess returned an empty response."
+            );
+
+        }
+
+
+        // ==================================
+        // PARSE NDJSON
+        // ==================================
+
         const members =
             text
-                .split("\n")
-                .filter(
-                    line =>
-                        line.trim() !== ""
-                )
-                .map(
-                    line =>
-                        JSON.parse(line)
-                );
+                .trim()
+                .split(/\r?\n/)
+                .filter(line => line.trim() !== "")
+                .map(line => JSON.parse(line));
 
 
         // ==================================
@@ -163,18 +180,16 @@ async function loadMembers() {
 
             count.textContent = "0";
 
-
             container.innerHTML = `
-
                 <p>
                     No members found.
                 </p>
-
             `;
 
+            lastUpdate.textContent =
+                "No members available.";
 
             return;
-
         }
 
 
@@ -187,170 +202,129 @@ async function loadMembers() {
 
 
         // ==================================
-        // CREATE FRAGMENT
+        // CREATE MEMBERS
         // ==================================
 
         const fragment =
             document.createDocumentFragment();
 
 
-        // ==================================
-        // CREATE MEMBER CARDS
-        // ==================================
+        members.forEach(member => {
 
-        members.forEach(
-            member => {
-
-
-                // ==========================
-                // USERNAME
-                // ==========================
-
-                const username =
-                    member.username ||
-                    member.id ||
-                    member.name;
+            const username =
+                member.username ||
+                member.id ||
+                member.name;
 
 
-                if (!username) {
-                    return;
-                }
-
-
-                // ==========================
-                // CARD
-                // ==========================
-
-                const card =
-                    document.createElement("a");
-
-
-                card.className =
-                    "member-card";
-
-
-                // ==========================
-                // LICHESS PROFILE LINK
-                // ==========================
-
-                card.href =
-                    "https://lichess.org/@/" +
-                    encodeURIComponent(
-                        username
-                    );
-
-
-                card.target = "_blank";
-
-
-                card.rel =
-                    "noopener noreferrer";
-
-
-                // ==========================
-                // AVATAR
-                // ==========================
-
-                const avatar =
-                    document.createElement("img");
-
-
-                avatar.src =
-                    "https://lichess1.org/" +
-                    "user/" +
-                    encodeURIComponent(
-                        username
-                    ) +
-                    "/avatar";
-
-
-                avatar.alt =
-                    "Avatar of " +
-                    username;
-
-
-                avatar.className =
-                    "member-avatar";
-
-
-                // ==========================
-                // DEFAULT AVATAR
-                // ==========================
-
-                avatar.onerror =
-                    function () {
-
-                        this.onerror = null;
-
-
-                        this.src =
-                            "https://lichess1.org/" +
-                            "assets/logo/" +
-                            "lichess-favicon-512.png";
-
-                    };
-
-
-                // ==========================
-                // USERNAME
-                // ==========================
-
-                const name =
-                    document.createElement("span");
-
-
-                name.className =
-                    "member-name";
-
-
-                name.textContent =
-                    username;
-
-
-                // ==========================
-                // ADD ELEMENTS TO CARD
-                // ==========================
-
-                card.appendChild(
-                    avatar
-                );
-
-
-                card.appendChild(
-                    name
-                );
-
-
-                fragment.appendChild(
-                    card
-                );
-
+            if (!username) {
+                return;
             }
-        );
+
+
+            // ==============================
+            // CARD
+            // ==============================
+
+            const card =
+                document.createElement("a");
+
+
+            card.className =
+                "member-card";
+
+
+            card.href =
+                `https://lichess.org/@/${encodeURIComponent(username)}`;
+
+
+            card.target =
+                "_blank";
+
+
+            card.rel =
+                "noopener noreferrer";
+
+
+            // ==============================
+            // AVATAR
+            // ==============================
+
+            const avatar =
+                document.createElement("img");
+
+
+            avatar.className =
+                "member-avatar";
+
+
+            avatar.src =
+                `https://lichess1.org/user/${encodeURIComponent(username)}/avatar`;
+
+
+            avatar.alt =
+                `Avatar of ${username}`;
+
+
+            avatar.loading =
+                "lazy";
+
+
+            avatar.onerror =
+                function () {
+
+                    this.onerror = null;
+
+                    this.src =
+                        "https://lichess1.org/assets/logo/lichess-favicon-512.png";
+
+                };
+
+
+            // ==============================
+            // USERNAME
+            // ==============================
+
+            const name =
+                document.createElement("span");
+
+
+            name.className =
+                "member-name";
+
+
+            name.textContent =
+                username;
+
+
+            // ==============================
+            // ADD TO CARD
+            // ==============================
+
+            card.appendChild(avatar);
+
+            card.appendChild(name);
+
+            fragment.appendChild(card);
+
+        });
 
 
         // ==================================
-        // DISPLAY MEMBERS
+        // DISPLAY
         // ==================================
 
         container.innerHTML = "";
 
-
-        container.appendChild(
-            fragment
-        );
+        container.appendChild(fragment);
 
 
         // ==================================
         // LAST UPDATE
         // ==================================
 
-        const now =
-            new Date();
-
-
         const time =
-            now.toLocaleTimeString(
+            new Date().toLocaleTimeString(
                 "en-GB",
                 {
                     hour: "2-digit",
@@ -361,8 +335,7 @@ async function loadMembers() {
 
 
         lastUpdate.textContent =
-            "Last updated: " +
-            time;
+            `Last updated: ${time}`;
 
 
         // ==================================
@@ -370,13 +343,14 @@ async function loadMembers() {
         // ==================================
 
         console.log(
-            "Viraat Chess Team members updated:",
+            "Viraat Leader Chess Team members:",
             members.length
         );
 
+    }
 
-    } catch (error) {
 
+    catch (error) {
 
         // ==================================
         // ERROR
@@ -393,22 +367,16 @@ async function loadMembers() {
 
 
         container.innerHTML = `
-
-            <p>
-
+            <p id="error">
                 Unable to load team members.
-
                 <br><br>
-
                 Please try again later.
-
             </p>
-
         `;
 
 
         lastUpdate.textContent =
-            "Update failed";
+            "Update failed.";
 
     }
 
@@ -419,9 +387,9 @@ async function loadMembers() {
 // START
 // ==========================================
 
-loadMembers();
-
 setupMemberSearch();
+
+loadMembers();
 
 
 // ==========================================
