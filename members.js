@@ -14,8 +14,6 @@ const TEAM_ID =
 const API_URL =
     `https://lichess.org/api/team/${TEAM_ID}/users`;
 
-const UPDATE_INTERVAL = 30000;
-
 
 // ==========================================
 // SEARCH
@@ -30,7 +28,6 @@ function setupMemberSearch() {
         return;
     }
 
-
     searchInput.addEventListener(
         "input",
         function () {
@@ -40,34 +37,35 @@ function setupMemberSearch() {
                     .toLowerCase()
                     .trim();
 
-
             const cards =
                 document.querySelectorAll(
                     ".member-card"
                 );
 
-
             cards.forEach(card => {
 
                 const name =
-                    card
-                        .querySelector(".member-name");
-
+                    card.querySelector(
+                        ".member-name"
+                    );
 
                 if (!name) {
                     return;
                 }
 
-
                 const username =
                     name.textContent
                         .toLowerCase();
 
+                if (username.includes(search)) {
 
-                card.style.display =
-                    username.includes(search)
-                        ? ""
-                        : "flex";
+                    card.style.display = "flex";
+
+                } else {
+
+                    card.style.display = "none";
+
+                }
 
             });
 
@@ -96,7 +94,7 @@ async function loadMembers() {
     if (!container || !count || !lastUpdate) {
 
         console.error(
-            "Required HTML elements are missing."
+            "HTML elements missing."
         );
 
         return;
@@ -105,10 +103,6 @@ async function loadMembers() {
 
     try {
 
-        // ==================================
-        // LOADING MESSAGE
-        // ==================================
-
         container.innerHTML = `
             <p class="loading">
                 Loading team members...
@@ -116,8 +110,14 @@ async function loadMembers() {
         `;
 
 
+        console.log(
+            "Requesting:",
+            API_URL
+        );
+
+
         // ==================================
-        // REQUEST LICHESS
+        // REQUEST
         // ==================================
 
         const response =
@@ -125,19 +125,28 @@ async function loadMembers() {
                 API_URL,
                 {
                     method: "GET",
+                    headers: {
+                        "Accept": "application/x-ndjson"
+                    },
                     cache: "no-store"
                 }
             );
 
 
+        console.log(
+            "HTTP status:",
+            response.status
+        );
+
+
         // ==================================
-        // CHECK HTTP STATUS
+        // CHECK RESPONSE
         // ==================================
 
         if (!response.ok) {
 
             throw new Error(
-                `Lichess returned HTTP ${response.status}`
+                `HTTP ${response.status}`
             );
 
         }
@@ -151,6 +160,12 @@ async function loadMembers() {
             await response.text();
 
 
+        console.log(
+            "Lichess response:",
+            text
+        );
+
+
         if (!text.trim()) {
 
             throw new Error(
@@ -161,40 +176,31 @@ async function loadMembers() {
 
 
         // ==================================
-        // PARSE NDJSON
+        // PARSE MEMBERS
         // ==================================
 
         const members =
             text
                 .trim()
                 .split(/\r?\n/)
-                .filter(line => line.trim() !== "")
-                .map(line => JSON.parse(line));
+                .filter(
+                    line =>
+                        line.trim() !== ""
+                )
+                .map(
+                    line =>
+                        JSON.parse(line)
+                );
+
+
+        console.log(
+            "Members received:",
+            members
+        );
 
 
         // ==================================
-        // NO MEMBERS
-        // ==================================
-
-        if (members.length === 0) {
-
-            count.textContent = "0";
-
-            container.innerHTML = `
-                <p>
-                    No members found.
-                </p>
-            `;
-
-            lastUpdate.textContent =
-                "No members available.";
-
-            return;
-        }
-
-
-        // ==================================
-        // MEMBER COUNT
+        // COUNT
         // ==================================
 
         count.textContent =
@@ -202,7 +208,7 @@ async function loadMembers() {
 
 
         // ==================================
-        // CREATE MEMBERS
+        // CREATE CARDS
         // ==================================
 
         const fragment =
@@ -221,10 +227,6 @@ async function loadMembers() {
                 return;
             }
 
-
-            // ==============================
-            // CARD
-            // ==============================
 
             const card =
                 document.createElement("a");
@@ -282,7 +284,7 @@ async function loadMembers() {
 
 
             // ==============================
-            // USERNAME
+            // NAME
             // ==============================
 
             const name =
@@ -298,25 +300,29 @@ async function loadMembers() {
 
 
             // ==============================
-            // ADD TO CARD
+            // CARD
             // ==============================
 
-            card.appendChild(avatar);
+            card.appendChild(
+                avatar
+            );
 
-            card.appendChild(name);
+            card.appendChild(
+                name
+            );
 
-            fragment.appendChild(card);
+            fragment.appendChild(
+                card
+            );
 
         });
 
 
-        // ==================================
-        // DISPLAY
-        // ==================================
-
         container.innerHTML = "";
 
-        container.appendChild(fragment);
+        container.appendChild(
+            fragment
+        );
 
 
         // ==================================
@@ -338,38 +344,44 @@ async function loadMembers() {
             `Last updated: ${time}`;
 
 
-        // ==================================
-        // CONSOLE
-        // ==================================
+    }
 
-        console.log(
-            "Viraat Leader Chess Team members:",
-            members.length
+    catch (error) {
+
+        console.error(
+            "MEMBERS ERROR:",
+            error
         );
+
+
+        count.textContent =
+            "ERROR";
+
+
+        container.innerHTML = `
+
+            <p id="error">
+
+                Unable to load team members.
+
+                <br><br>
+
+                <strong>
+                    Error:
+                </strong>
+
+                ${error.message}
+
+            </p>
+
+        `;
+
+
+        lastUpdate.textContent =
+            "Update failed.";
 
     }
 
-
-catch (error) {
-
-    console.error(
-        "MEMBERS API ERROR:",
-        error
-    );
-
-    count.textContent = "ERROR";
-
-    container.innerHTML = `
-        <p id="error">
-            Unable to load team members.
-            <br><br>
-            Error:
-            ${error.message}
-        </p>
-    `;
-
-    lastUpdate.textContent =
-        "Update failed.";
 }
 
 
@@ -380,13 +392,3 @@ catch (error) {
 setupMemberSearch();
 
 loadMembers();
-
-
-// ==========================================
-// AUTOMATIC UPDATE
-// ==========================================
-
-setInterval(
-    loadMembers,
-    UPDATE_INTERVAL
-);
